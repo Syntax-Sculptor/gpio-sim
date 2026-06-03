@@ -11,6 +11,10 @@ static int is_valid_pin(unsigned int pin) {
     return pin < GPIO_NUM_PINS;
 }
 
+static int is_input_pin(uint32_t pins, unsigned int pin) {
+    return (pins & (1u << pin)) == 0u;
+}
+
 gpio_status_t gpio_init(gpio_port_t* port) {
     if (port == NULL) {
         return GPIO_ERROR_NULL_PORT;
@@ -51,11 +55,27 @@ gpio_status_t gpio_write_high(gpio_port_t* port, unsigned int pin) {
     else if (!is_valid_pin(pin)) {
         return GPIO_ERROR_INVALID_PIN;
     }
-    else if ((port->direction & (1u << pin)) == 0u) {
+    else if (is_input_pin(port->direction, pin)) {
         return GPIO_ERROR_ILLEGAL_PIN_WRITE;
     }
 
     port->output |= (1u << pin);
+
+    return GPIO_OK;
+}
+
+gpio_status_t gpio_write_low(gpio_port_t* port, unsigned int pin) {
+    if (port == NULL) {
+        return GPIO_ERROR_NULL_PORT;
+    }
+    else if (!is_valid_pin(pin)) {
+        return GPIO_ERROR_INVALID_PIN;
+    }
+    else if (is_input_pin(port->direction, pin)) {
+        return GPIO_ERROR_ILLEGAL_PIN_WRITE;
+    }
+    
+    port->output &= ~(1u << pin);
 
     return GPIO_OK;
 }

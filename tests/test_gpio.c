@@ -210,6 +210,93 @@ void test_gpio_write_high_preserves_output_bits(void) {
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
 }
 
+void test_gpio_write_low_rejects_null_port(void) {
+    TEST_ASSERT_EQUAL(GPIO_ERROR_NULL_PORT, gpio_write_low(NULL, 0));
+}
+
+void test_gpio_write_low_rejects_invalid_pin(void) {
+    gpio_port_t port = {
+        .direction = 0x0u,
+        .output = 0x0u,
+        .input = 0x0u,
+    };
+    
+    TEST_ASSERT_EQUAL(GPIO_ERROR_INVALID_PIN, gpio_write_low(&port, GPIO_NUM_PINS));
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.direction);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
+}
+
+void test_gpio_write_low_rejects_input_pin(void) {
+    gpio_port_t port = {
+        .direction = 0x0u,
+        .output = 0x0u,
+        .input = 0x0u,
+    };
+    
+    TEST_ASSERT_EQUAL(GPIO_ERROR_ILLEGAL_PIN_WRITE, gpio_write_low(&port, 0));
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.direction);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
+}
+
+void test_gpio_write_low_pin_0(void) {
+    gpio_port_t port = {
+        .direction = 0x1u,
+        .output = 0x1u,
+        .input = 0x0u,
+    };
+    
+    TEST_ASSERT_EQUAL(GPIO_OK, gpio_write_low(&port, 0));
+    TEST_ASSERT_EQUAL_UINT32(0x00000001u, port.direction);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
+}
+
+void test_gpio_write_low_pin_1(void) {
+    gpio_port_t port = {
+        .direction = 0x2u,
+        .output = 0x2u,
+        .input = 0x0u,
+    };
+    
+    TEST_ASSERT_EQUAL(GPIO_OK, gpio_write_low(&port, 1));
+    TEST_ASSERT_EQUAL_UINT32(0x00000002u, port.direction);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
+}
+
+void test_gpio_write_low_pin_31(void) {
+    gpio_port_t port = {
+        .direction = 0x80000000u,
+        .output = 0x80000000u,
+        .input = 0x0u,
+    };
+    
+    TEST_ASSERT_EQUAL(GPIO_OK, gpio_write_low(&port, 31));
+    TEST_ASSERT_EQUAL_UINT32(0x80000000u, port.direction);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
+}
+
+void test_gpio_write_low_preserves_output_bits(void) {
+    gpio_port_t port = {
+        .direction = 0x3u, // Pins 0 and 1 set initially
+        .output = 0x3u,
+        .input = 0x0u,
+    };
+
+    TEST_ASSERT_EQUAL(GPIO_OK, gpio_write_low(&port, 1));
+    TEST_ASSERT_EQUAL_UINT32(0x00000001u, port.output);
+
+    TEST_ASSERT_EQUAL(GPIO_OK, gpio_write_low(&port, 0));
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
+
+    TEST_ASSERT_EQUAL_UINT32(0x00000003u, port.direction);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
+}
+
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_gpio_init_resets_registers);
@@ -222,6 +309,7 @@ int main(void) {
     RUN_TEST(test_gpio_set_direction_output_pin_31);
     RUN_TEST(test_gpio_set_direction_input_clears_bits);
     RUN_TEST(test_gpio_set_direction_preserves_bits);
+
     RUN_TEST(test_gpio_write_high_rejects_null_port);
     RUN_TEST(test_gpio_write_high_rejects_invalid_pin);
     RUN_TEST(test_gpio_write_high_rejects_input_pin);
@@ -229,6 +317,14 @@ int main(void) {
     RUN_TEST(test_gpio_write_high_pin_1);
     RUN_TEST(test_gpio_write_high_pin_31);
     RUN_TEST(test_gpio_write_high_preserves_output_bits);
+
+    RUN_TEST(test_gpio_write_low_rejects_null_port);
+    RUN_TEST(test_gpio_write_low_rejects_invalid_pin);
+    RUN_TEST(test_gpio_write_low_rejects_input_pin);
+    RUN_TEST(test_gpio_write_low_pin_0);
+    RUN_TEST(test_gpio_write_low_pin_1);
+    RUN_TEST(test_gpio_write_low_pin_31);
+    RUN_TEST(test_gpio_write_low_preserves_output_bits);
 
     return UNITY_END();
 }

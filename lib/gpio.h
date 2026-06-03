@@ -39,4 +39,6 @@ gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin, gpio_direc
 
 gpio_status_t gpio_write_high(gpio_port_t* port, unsigned int pin);
 
+gpio_status_t gpio_write_low(gpio_port_t* port, unsigned int pin);
+
 #endif 
