@@ -7,16 +7,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "unity.h"
+
+static uint32_t registers;
+
 void tearDown(void) {
 
 }
 
 void setUp(void) {
-    
+    registers = 0x00000000;
 }
 
-int main() {
-    puts("Hello, world");
+int main(void) {
+    UNITY_BEGIN();
 
-    return EXIT_SUCCESS;
+    return UNITY_END();
 }
