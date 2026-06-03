@@ -1,3 +1,9 @@
+# ------------------------------------------
+# SyntaxSculptor
+# 
+# SPDX-License-Identifier: MIT
+# ------------------------------------------
+ 
 .PHONY: all clean test gpio
 
 CC := gcc
