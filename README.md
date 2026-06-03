@@ -1,0 +1,1 @@
+General-Purpose Input/Output simulator made as a learning project as I delve into learning Embedded Systems. A more detailed README will be made as progress furthers.
