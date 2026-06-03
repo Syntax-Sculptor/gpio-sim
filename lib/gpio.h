@@ -21,7 +21,8 @@ typedef enum gpio_status_t {
     GPIO_OK = 0,
     GPIO_ERROR_NULL_PORT,
     GPIO_ERROR_INVALID_PIN,
-    GPIO_ERROR_INVALID_DIRECTION
+    GPIO_ERROR_INVALID_DIRECTION,
+    GPIO_ERROR_ILLEGAL_PIN_WRITE,
 } gpio_status_t;
 
 typedef enum gpio_direction_t {
@@ -34,6 +35,8 @@ typedef enum gpio_direction_t {
  */
 gpio_status_t gpio_init(gpio_port_t* port);
 
-gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin_num, gpio_direction_t direction);
+gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin, gpio_direction_t direction);
+
+gpio_status_t gpio_write_high(gpio_port_t* port, unsigned int pin);
 
 #endif 
