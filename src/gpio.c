@@ -7,6 +7,10 @@
 #include "gpio.h"
 #include <stdlib.h>
 
+static int is_valid_pin(unsigned int pin) {
+    return pin < GPIO_NUM_PINS;
+}
+
 gpio_status_t gpio_init(gpio_port_t* port) {
     if (port == NULL) {
         return GPIO_ERROR_NULL_PORT;
@@ -19,11 +23,11 @@ gpio_status_t gpio_init(gpio_port_t* port) {
     return GPIO_OK;
 }
 
-gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin_num, gpio_direction_t direction) {
+gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin, gpio_direction_t direction) {
     if (port == NULL) {
         return GPIO_ERROR_NULL_PORT;
     }
-    else if (pin_num >= GPIO_NUM_PINS) {
+    else if (!is_valid_pin(pin)) {
         return GPIO_ERROR_INVALID_PIN;
     }
     else if (direction != GPIO_INPUT && direction != GPIO_OUTPUT) {
@@ -31,10 +35,10 @@ gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin_num, gpio_d
     }
 
     if (direction == GPIO_OUTPUT) {
-        port->direction |= (1u << pin_num);
+        port->direction |= (1u << pin);
     }
     else {
-        port->direction &= ~(1u << pin_num);
+        port->direction &= ~(1u << pin);
     }
 
     return GPIO_OK;
