@@ -30,11 +30,13 @@ test:
 
 debug:
 	mkdir -p build
-	$(CC) $(SRC) $(TESTS) $(CFLAGS) $(TEST_INCLUDES) $(INCLUDES) -g -O0 -o $(DEBUG_OUT)
+	$(CC) $(SRC) $(TESTS) $(CFLAGS) $(TEST_INCLUDES) $(INCLUDES) -g -O0 -o \
+		$(DEBUG_OUT)
 
 sanitize:
 	mkdir -p build
-	$(CC) $(SRC) $(TESTS) $(CFLAGS) $(TEST_INCLUDES) $(INCLUDES) -fsanitize=address,undefined -g -O0 -o $(SANITIZE_OUT)
+	$(CC) $(SRC) $(TESTS) $(CFLAGS) $(TEST_INCLUDES) $(INCLUDES) \
+		-fsanitize=address,undefined -g -O0 -o $(SANITIZE_OUT)
 
 clean:
 	rm -rf build/

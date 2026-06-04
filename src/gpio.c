@@ -27,7 +27,11 @@ gpio_status_t gpio_init(gpio_port_t* port) {
     return GPIO_OK;
 }
 
-gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin, gpio_direction_t direction) {
+gpio_status_t gpio_set_direction(
+    gpio_port_t* port, 
+    unsigned int pin, 
+    gpio_direction_t direction
+) {
     if (port == NULL) {
         return GPIO_ERROR_NULL_PORT;
     }
@@ -80,7 +84,11 @@ gpio_status_t gpio_write_low(gpio_port_t* port, unsigned int pin) {
     return GPIO_OK;
 }
 
-gpio_status_t gpio_read(const gpio_port_t* port, unsigned int pin, gpio_value_t* out) {
+gpio_status_t gpio_read(
+    const gpio_port_t* port, 
+    unsigned int pin, 
+    gpio_value_t* out
+) {
     if (port == NULL) {
         return GPIO_ERROR_NULL_PORT;
     }

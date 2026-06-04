@@ -42,7 +42,11 @@ typedef enum gpio_value_t {
 gpio_status_t gpio_init(gpio_port_t* port);
 
 /** Sets whether the provided pin is for handling inputs or outputs. */
-gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin, gpio_direction_t direction);
+gpio_status_t gpio_set_direction(
+    gpio_port_t* port, 
+    unsigned int pin, 
+    gpio_direction_t direction
+);
 
 /** Sets the provided output pin as high. */
 gpio_status_t gpio_write_high(gpio_port_t* port, unsigned int pin);
@@ -51,6 +55,10 @@ gpio_status_t gpio_write_high(gpio_port_t* port, unsigned int pin);
 gpio_status_t gpio_write_low(gpio_port_t* port, unsigned int pin);
 
 /** Returns whether the provided pin is high or low. */
-gpio_status_t gpio_read(const gpio_port_t* port, unsigned int pin, gpio_value_t* out);
+gpio_status_t gpio_read(
+    const gpio_port_t* port, 
+    unsigned int pin, 
+    gpio_value_t* out
+);
 
 #endif 

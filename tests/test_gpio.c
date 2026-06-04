@@ -41,7 +41,10 @@ void test_gpio_set_direction_rejects_invalid_pin(void) {
         .input = 0x0u,
     };
     
-    TEST_ASSERT_EQUAL(GPIO_ERROR_INVALID_PIN, gpio_set_direction(&port, GPIO_NUM_PINS, GPIO_INPUT));
+    TEST_ASSERT_EQUAL(
+        GPIO_ERROR_INVALID_PIN, 
+        gpio_set_direction(&port, GPIO_NUM_PINS, GPIO_INPUT)
+    );
     TEST_ASSERT_EQUAL_UINT32(0x00000001u, port.direction);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
@@ -54,7 +57,10 @@ void test_gpio_set_direction_rejects_invalid_direction(void) {
         .input = 0x0u,
     };
     
-    TEST_ASSERT_EQUAL(GPIO_ERROR_INVALID_DIRECTION, gpio_set_direction(&port, 0, 5));
+    TEST_ASSERT_EQUAL(
+        GPIO_ERROR_INVALID_DIRECTION, 
+        gpio_set_direction(&port, 0, 5)
+    );
     TEST_ASSERT_EQUAL_UINT32(0x00000001u, port.direction);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
@@ -139,7 +145,10 @@ void test_gpio_write_high_rejects_invalid_pin(void) {
         .input = 0x0u,
     };
     
-    TEST_ASSERT_EQUAL(GPIO_ERROR_INVALID_PIN, gpio_write_high(&port, GPIO_NUM_PINS));
+    TEST_ASSERT_EQUAL(
+        GPIO_ERROR_INVALID_PIN, 
+        gpio_write_high(&port, GPIO_NUM_PINS)
+    );
     TEST_ASSERT_EQUAL_UINT32(0x00000001u, port.direction);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
@@ -221,7 +230,10 @@ void test_gpio_write_low_rejects_invalid_pin(void) {
         .input = 0x0u,
     };
     
-    TEST_ASSERT_EQUAL(GPIO_ERROR_INVALID_PIN, gpio_write_low(&port, GPIO_NUM_PINS));
+    TEST_ASSERT_EQUAL(
+        GPIO_ERROR_INVALID_PIN, 
+        gpio_write_low(&port, GPIO_NUM_PINS)
+    );
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.direction);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
@@ -309,7 +321,10 @@ void test_gpio_read_rejects_invalid_pin(void) {
     };
     gpio_value_t val;
 
-    TEST_ASSERT_EQUAL(GPIO_ERROR_INVALID_PIN, gpio_read(&port, GPIO_NUM_PINS, &val));
+    TEST_ASSERT_EQUAL(
+        GPIO_ERROR_INVALID_PIN, 
+        gpio_read(&port, GPIO_NUM_PINS, &val)
+    );
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.direction);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
