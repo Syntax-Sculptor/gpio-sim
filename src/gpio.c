@@ -80,12 +80,12 @@ gpio_status_t gpio_write_low(gpio_port_t* port, unsigned int pin) {
     return GPIO_OK;
 }
 
-gpio_status_t gpio_read(gpio_port_t* port, unsigned int pin, gpio_value_t* out) {
+gpio_status_t gpio_read(const gpio_port_t* port, unsigned int pin, gpio_value_t* out) {
     if (port == NULL) {
         return GPIO_ERROR_NULL_PORT;
     }
     else if (out == NULL) {
-        return GPIO_ERROR_NULL_VALUE;
+        return GPIO_ERROR_NULL_OUTPUT;
     }
     else if (!is_valid_pin(pin)) {
         return GPIO_ERROR_INVALID_PIN;

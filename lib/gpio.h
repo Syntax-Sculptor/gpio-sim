@@ -7,7 +7,7 @@
 #ifndef GPIO_H
 #define GPIO_H
 
-#define GPIO_NUM_PINS 32
+#define GPIO_NUM_PINS 32u
 
 #include <stdint.h>
 
@@ -23,7 +23,7 @@ typedef enum gpio_status_t {
     GPIO_ERROR_INVALID_PIN,
     GPIO_ERROR_INVALID_DIRECTION,
     GPIO_ERROR_ILLEGAL_PIN_WRITE,
-    GPIO_ERROR_NULL_VALUE,
+    GPIO_ERROR_NULL_OUTPUT,
 } gpio_status_t;
 
 typedef enum gpio_direction_t {
@@ -41,12 +41,16 @@ typedef enum gpio_value_t {
  */
 gpio_status_t gpio_init(gpio_port_t* port);
 
+/** Sets whether the provided pin is for handling inputs or outputs. */
 gpio_status_t gpio_set_direction(gpio_port_t* port, unsigned int pin, gpio_direction_t direction);
 
+/** Sets the provided output pin as high. */
 gpio_status_t gpio_write_high(gpio_port_t* port, unsigned int pin);
 
+/** Sets the provided output pin as low. */
 gpio_status_t gpio_write_low(gpio_port_t* port, unsigned int pin);
 
-gpio_status_t gpio_read(gpio_port_t* port, unsigned int pin, gpio_value_t* out);
+/** Returns whether the provided pin is high or low. */
+gpio_status_t gpio_read(const gpio_port_t* port, unsigned int pin, gpio_value_t* out);
 
 #endif 

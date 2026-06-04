@@ -323,7 +323,7 @@ void test_gpio_read_rejects_null_output_pointer(void) {
         .input = 0x0u,
     };
 
-    TEST_ASSERT_EQUAL(GPIO_ERROR_NULL_VALUE, gpio_read(&port, 1, NULL));
+    TEST_ASSERT_EQUAL(GPIO_ERROR_NULL_OUTPUT, gpio_read(&port, 1, NULL));
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.direction);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.output);
     TEST_ASSERT_EQUAL_UINT32(0x00000000u, port.input);
