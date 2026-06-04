@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 # ------------------------------------------
  
-.PHONY: all clean test gpio debug
+.PHONY: all clean test gpio debug sanitize
 
 CC := gcc
 CFLAGS := -Wall -Wextra -std=c11 -Wpedantic -Werror
@@ -15,6 +15,7 @@ TESTS := tests/test_gpio.c ext/unity/unity.c
 TESTS_OUT := build/tests
 OUT := build/gpio.o
 DEBUG_OUT := build/debug
+SANITIZE_OUT := build/sanitize
 
 all: gpio
 
@@ -30,6 +31,10 @@ test:
 debug:
 	mkdir -p build
 	$(CC) $(SRC) $(TESTS) $(CFLAGS) $(TEST_INCLUDES) $(INCLUDES) -g -O0 -o $(DEBUG_OUT)
+
+sanitize:
+	mkdir -p build
+	$(CC) $(SRC) $(TESTS) $(CFLAGS) $(TEST_INCLUDES) $(INCLUDES) -fsanitize=address,undefined -g -O0 -o $(SANITIZE_OUT)
 
 clean:
 	rm -rf build/
