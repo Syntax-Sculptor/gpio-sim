@@ -7,7 +7,7 @@
 .PHONY: all clean test gpio
 
 CC := gcc
-CFLAGS := -Wall -Wextra -std=c11
+CFLAGS := -Wall -Wextra -std=c11 -Wpedantic -Werror
 INCLUDES := -I lib/
 TEST_INCLUDES := -I ext/unity/
 SRC := src/gpio.c
