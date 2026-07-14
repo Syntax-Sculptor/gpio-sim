@@ -1,10 +1,10 @@
-# GPIO Simulator
+# GPIO-Sim
 
 ## Introduction
 
 GPIO-Sim is a C library that simulates 32-pin GPIO registers. Along with the library are numerous unit tests written using the [Unity](https://github.com/ThrowTheSwitch/Unity) library.
 
-GPIO-sim utilizes three 32-bit registers: `direction`, `input`, and `output`, which does the following:
+GPIO-Sim utilizes three 32-bit registers: `direction`, `input`, and `output`, which does the following:
 - `direction` determines whether a pin is input or output
 - `input` determines whether an input pin is high/low
 - `output` determines whether an output pin is high/low
